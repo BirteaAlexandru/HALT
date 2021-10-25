@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sign_in_size">40dp</dimen>
+    <dimen name="margin_top">40dp</dimen>
+    <dimen name="edit_text_height">65dp</dimen>
+    <dimen name="edit_text_vertical_padding">15dp</dimen>
+    <dimen name="edit_text_left_padding">60dp</dimen>
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="corners_radius">5dp</dimen>
+    <dimen name="horizontal_padding">30dp</dimen>
+    <dimen name="image_view_size">35dp</dimen>
+    <dimen name="image_view_margin_left">10dp</dimen>
+    <dimen name="login_button_height">60dp</dimen>
+    <dimen name="login_button_margin_top">30dp</dimen>
+    <dimen name="login_button_text_size">25dp</dimen>
+    <dimen name="register_margin_top">20dp</dimen>
+    <dimen name="register_margin_bottom">40dp</dimen>
+    <dimen name="register_text_size">18dp</dimen>
+    <dimen name="register_label_margin_left">10dp</dimen>
+    <dimen name="login_label_margin_left">10dp</dimen>
+    <dimen name="login_text_size">18dp</dimen>
+    <dimen name="forgot_password_margin_bottom">40dp</dimen>
+    <dimen name="forgot_password_margin_top">40dp</dimen>
+    <dimen name="forgot_password_text_size">20dp</dimen>
+    <dimen name="forgot_password_margin_left">10dp</dimen>
+    <dimen name="button_corner_radius">10dp</dimen>
+    <dimen name="reset_back_to_login_tv_margin_top">55dp</dimen>
+
+</resources>

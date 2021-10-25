@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "808334715339",
+    "firebase_url": "https://hai-afara-la-tigara-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "hai-afara-la-tigara",
+    "storage_bucket": "hai-afara-la-tigara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808334715339:android:49df7c03f1f0453d336e4e",
+        "android_client_info": {
+          "package_name": "com.example.halt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808334715339-eker9ot57t89050t20mj4kbe9b0i84kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.halt",
+            "certificate_hash": "9135e659577af851f2503fff4dd601441277a6cb"
+          }
+        },
+        {
+          "client_id": "808334715339-ft4n81rmim8ap0mb6vo90vflhu5hr5c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnrwBil6pFFVoP7lu5EcmcglTrC_aMfRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808334715339-ft4n81rmim8ap0mb6vo90vflhu5hr5c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
