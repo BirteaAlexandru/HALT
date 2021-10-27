@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,12 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
+        Button friendsButton= view.findViewById(R.id.friends_button);
+        Button profileButton= view.findViewById(R.id.profile_button);
+
+
+        friendsButton.setOnClickListener(v -> dashboardActivityFragmentCommunication.openFriendsActivity());
+        profileButton.setOnClickListener(v -> dashboardActivityFragmentCommunication.openProfileActivity());
      /*
         CardView logoutCard = view.findViewById(R.id.logout_card);
         CardView topicsCard = view.findViewById(R.id.topics_card);

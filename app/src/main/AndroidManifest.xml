@@ -17,7 +17,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DashboardActivity"/>
-
+        <activity
+            android:name=".activities.FriendsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/friend_activity_name"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/profile_activity_name"
+            android:screenOrientation="sensor" />
     </application>
 
 </manifest>

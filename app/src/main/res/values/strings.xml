@@ -13,5 +13,10 @@
     <string name="back_to_login_fragment_label">Back to login</string>
     <string name="confirm_password_hint">Confirm your password...</string>
     <string name="login_question">Already have an account?</string>
+    <string name="home_button">Home</string>
+    <string name="friends_button">Friends</string>
+    <string name="profile_button">Profile</string>
+    <string name="friend_activity_name">FriendActivity</string>
+    <string name="profile_activity_name">ProfileActivity</string>
 
 </resources>

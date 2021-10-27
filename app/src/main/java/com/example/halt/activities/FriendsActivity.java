@@ -8,35 +8,32 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
-import com.example.halt.fragments.DashboardFragment;
 import com.example.halt.fragments.FriendsFragment;
-import com.example.halt.fragments.ProfileFragment;
-import com.example.halt.interfaces.DashboardActivityFragmentCommunication;
+import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardActivityFragmentCommunication {
-
+public class FriendsActivity extends AppCompatActivity implements FriendsActivityFragmentCommunication {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_activity);
-        openDashboardFragment();
+        setContentView(R.layout.friends_activity);
+        openFriendsFragment();
     }
 
     @Override
-    public void openDashboardFragment() {
+    public void openFriendsFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        String tag = DashboardFragment.class.getName();
-        DashboardFragment dashboardFragment = new DashboardFragment();
+        String tag = FriendsFragment.class.getName();
+        FriendsFragment dashboardFragment = new FriendsFragment();
         FragmentTransaction addTransaction = transaction.add(
-                R.id.dashboard_frame_layout, dashboardFragment, tag
+                R.id.friend_frame_layout, dashboardFragment, tag
         );
         addTransaction.commit();
     }
 
     @Override
-    public void openFriendsActivity() {
-        Intent myIntent = new Intent(this, FriendsActivity.class);
+    public void openDashboardActivity() {
+        Intent myIntent = new Intent(this, DashboardActivity.class);
         this.startActivity(myIntent);
     }
 

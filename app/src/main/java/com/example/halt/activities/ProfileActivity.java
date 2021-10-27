@@ -8,28 +8,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
-import com.example.halt.fragments.DashboardFragment;
-import com.example.halt.fragments.FriendsFragment;
 import com.example.halt.fragments.ProfileFragment;
-import com.example.halt.interfaces.DashboardActivityFragmentCommunication;
+import com.example.halt.interfaces.ProfileActivityFragmentCommunication;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardActivityFragmentCommunication {
-
+public class ProfileActivity extends AppCompatActivity implements ProfileActivityFragmentCommunication {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_activity);
-        openDashboardFragment();
+        setContentView(R.layout.profile_activity);
+        openProfileFragment();
     }
 
+
     @Override
-    public void openDashboardFragment() {
+    public void openProfileFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        String tag = DashboardFragment.class.getName();
-        DashboardFragment dashboardFragment = new DashboardFragment();
+        String tag = ProfileFragment.class.getName();
+        ProfileFragment profileFragment = new ProfileFragment();
         FragmentTransaction addTransaction = transaction.add(
-                R.id.dashboard_frame_layout, dashboardFragment, tag
+                R.id.profile_frame_layout, profileFragment, tag
         );
         addTransaction.commit();
     }
@@ -39,10 +37,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardAct
         Intent myIntent = new Intent(this, FriendsActivity.class);
         this.startActivity(myIntent);
     }
-
     @Override
-    public void openProfileActivity() {
-        Intent myIntent = new Intent(this, ProfileActivity.class);
+    public void openDashboardActivity() {
+        Intent myIntent = new Intent(this, DashboardActivity.class);
         this.startActivity(myIntent);
     }
 }

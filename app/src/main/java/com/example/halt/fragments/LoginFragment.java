@@ -50,6 +50,7 @@ public class LoginFragment extends Fragment {
         progressDialog = new ProgressDialog(this.getActivity());
         TextView signUpTV = view.findViewById(R.id.sign_up_tv);
         TextView changePasswordTV = view.findViewById(R.id.forgot_password_tv);
+
         loginButton.setOnClickListener(v -> login());
         signUpTV.setOnClickListener(v -> authenticationActivityFragmentCommunication.openSignUpFragment());
         changePasswordTV.setOnClickListener(v -> authenticationActivityFragmentCommunication.openChangePasswordFragment());
