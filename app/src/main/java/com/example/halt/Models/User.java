@@ -6,7 +6,7 @@ public class User {
     String email;
     String username;
     boolean smoking_available;
-    ArrayList<User> friends;
+    //ArrayList<User> friends;
    // ArrayList<User> friendRequests;
 
     public User(){

@@ -1,8 +1,6 @@
 package com.example.halt.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,30 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.halt.Models.User;
 import com.example.halt.R;
 import com.example.halt.constants.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class AddFriendFragment extends Fragment {
     EditText emailEt;
@@ -65,18 +53,15 @@ public class AddFriendFragment extends Fragment {
             return;
         }
 
-
         progressDialog.setMessage(Constants.PROGRESS_DIALOG_MESSAGE);
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
-
-        // databaseReference.child("Users").child(firebaseAuth.getUid()).child("Friends").child(mail);
-
 
         findUser(email, new firebaseCallback() {
             @Override
             public void onCallback(String userId) {
                 databaseReference.child("Users").child(firebaseAuth.getUid()).child("Friends").child(userId).setValue("true");
+                Toast.makeText(getActivity(), Constants.FRIEND_ADDED_SUCCESSFULLY, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -89,6 +74,7 @@ public class AddFriendFragment extends Fragment {
     private void findUser(String email, firebaseCallback callback ){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference().child("Users");
+
         databaseReference.orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -100,7 +86,7 @@ public class AddFriendFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getActivity(), Constants.FRIEND_NOT_FOUND, Toast.LENGTH_SHORT).show();
             }
         });
     }

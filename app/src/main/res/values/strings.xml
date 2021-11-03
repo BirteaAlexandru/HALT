@@ -18,5 +18,6 @@
     <string name="profile_button">Profile</string>
     <string name="friend_activity_name">FriendActivity</string>
     <string name="profile_activity_name">ProfileActivity</string>
+    <string name="radio_button">ready for a smoke?</string>
 
 </resources>

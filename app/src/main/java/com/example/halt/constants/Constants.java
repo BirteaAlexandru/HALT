@@ -15,5 +15,6 @@ public class Constants {
     public final static String SUCCESSFUL_CHANGE_PASSWORD_MESSAGE = "E-mail for resetting password has been successfully sent !";
     public final static String FAILED_CHANGE_PASSWORD_ERROR_MESSAGE = "E-mail for resetting password couldn't be sent !";
     public final static String SHARED_PREFERENCES_USER_EMAIL = "UserEmail";
-
+    public static final String FRIEND_ADDED_SUCCESSFULLY = "Friend added";
+    public static final String FRIEND_NOT_FOUND = "Friend not found";
 }
