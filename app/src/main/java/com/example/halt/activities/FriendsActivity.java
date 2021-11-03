@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
+import com.example.halt.fragments.AddFriendFragment;
 import com.example.halt.fragments.FriendsFragment;
 import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
 
@@ -41,5 +42,17 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
     public void openProfileActivity() {
         Intent myIntent = new Intent(this, ProfileActivity.class);
         this.startActivity(myIntent);
+    }
+
+    @Override
+    public void openAddFriendFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        String tag = AddFriendFragment.class.getName();
+        AddFriendFragment dashboardFragment = new AddFriendFragment();
+        FragmentTransaction addTransaction = transaction.add(
+                R.id.friend_frame_layout, dashboardFragment, tag
+        );
+        addTransaction.commit();
     }
 }

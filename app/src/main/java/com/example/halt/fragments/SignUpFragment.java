@@ -17,16 +17,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.halt.Models.User;
 import com.example.halt.R;
 import com.example.halt.constants.Constants;
 import com.example.halt.interfaces.AuthenticationActivityFragmentCommunication;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignUpFragment extends Fragment {
     private EditText emailEt, passwordEt, confirmPasswordEt;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private AuthenticationActivityFragmentCommunication authenticationActivityFragmentCommunication;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = database.getReference();
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -84,6 +93,7 @@ public class SignUpFragment extends Fragment {
             if (task.isSuccessful()) {
                 Toast.makeText(getActivity(), Constants.SUCCESSFUL_REGISTER_MESSAGE, Toast.LENGTH_SHORT).show();
                 authenticationActivityFragmentCommunication.openLoginFragment();
+                writeNewUser(firebaseAuth.getUid(), "mama", email);
             } else {
                 Toast.makeText(getActivity(), Constants.FAILED_REGISTER_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
 
@@ -91,6 +101,31 @@ public class SignUpFragment extends Fragment {
             progressDialog.dismiss();
         });
     }
+
+    public void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // inside the method of on Data change we are setting
+                // our object class to our database reference.
+                // data base reference will sends data to firebase.
+                databaseReference.child("Users").child(userId).setValue(user);
+
+                // after adding this data we are showing toast message.
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // if the data is not added or it is cancelled then
+                // we are displaying a failure toast message.
+            }
+        });
+
+
+    }
+
+
 
     private Boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_between_friends"
+        android:padding="@dimen/margin_between_friends"
+        android:orientation="vertical"
+        android:background="@color/grey"
+
+        >
+        <TextView
+            android:id="@+id/friends_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/edit_friend_text_size"
+            android:text="test text"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

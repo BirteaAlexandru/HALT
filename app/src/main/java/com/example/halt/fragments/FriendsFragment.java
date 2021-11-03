@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.halt.R;
 import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FriendsFragment extends Fragment {
     private FriendsActivityFragmentCommunication friendsActivityFragmentCommunication;
@@ -32,11 +33,17 @@ public class FriendsFragment extends Fragment {
         View view = inflater.inflate(R.layout.friends_fragment, container, false);
         Button dashboardButton= view.findViewById(R.id.home_button);
         Button profileButton= view.findViewById(R.id.profile_button);
+        FloatingActionButton addFriendButton= view.findViewById(R.id.add_friend_button);
 
 
         dashboardButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openDashboardActivity());
         profileButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openProfileActivity());
-
+        addFriendButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openAddFriendFragment());
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }

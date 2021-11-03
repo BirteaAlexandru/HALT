@@ -3,36 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dark_grey"
-        android:gravity="center"
+        android:gravity="bottom"
         android:orientation="vertical"
         tools:context=".fragments.FriendsFragment">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_friend_button">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/recycler_view_friends"
+                />
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+           android:id="@+id/add_friend_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/add_icon"
+            android:layout_margin="@dimen/image_view_margin_left"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:stretchColumns="0"
             >
 
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/home_button"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@color/green"
                 android:drawableTop="@drawable/home"
                 android:gravity="center"
                 android:text="@string/home_button"
-                android:textColor="@color/dark_green"
-                />
+                android:textColor="@color/dark_green" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/profile_button"
@@ -42,19 +64,17 @@
                 android:background="@color/green"
                 android:drawableTop="@drawable/profile"
                 android:text="@string/profile_button"
-                android:textColor="@color/dark_green"
-                />
+                android:textColor="@color/dark_green" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/friends_button"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@color/green"
                 android:drawableTop="@drawable/friends"
                 android:text="@string/friends_button"
-                android:textColor="@color/dark_green"
-                />
+                android:textColor="@color/dark_green" />
 
         </LinearLayout>
 
