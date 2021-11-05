@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <LinearLayout
@@ -22,38 +23,17 @@
             >
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/home_button"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:menu="@menu/bottom_menu"
                 android:background="@color/green"
-                android:drawableTop="@drawable/home"
-                android:gravity="center"
-                android:text="@string/home_button"
-                android:textColor="@color/dark_green"
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/profile_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/green"
-                android:drawableTop="@drawable/profile"
-                android:text="@string/profile_button"
-                android:textColor="@color/dark_green"
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/friends_button"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@color/green"
-                android:drawableTop="@drawable/friends"
-                android:text="@string/friends_button"
-                android:textColor="@color/dark_green"
+                app:itemTextColor="@color/dark_green"
+                android:outlineAmbientShadowColor="@color/dark_green"
+                android:outlineSpotShadowColor="@color/dark_green"
+                app:itemRippleColor="@color/dark_green"
+                app:itemIconTint="@color/dark_green"
                 />
 
         </LinearLayout>

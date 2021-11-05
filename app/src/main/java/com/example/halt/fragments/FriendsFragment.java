@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.halt.R;
 import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FriendsFragment extends Fragment {
@@ -30,20 +32,39 @@ public class FriendsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         View view = inflater.inflate(R.layout.friends_fragment, container, false);
-        Button dashboardButton= view.findViewById(R.id.home_button);
-        Button profileButton= view.findViewById(R.id.profile_button);
-        FloatingActionButton addFriendButton= view.findViewById(R.id.add_friend_button);
+        BottomNavigationView bottomNavigationView= view.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-
-        dashboardButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openDashboardActivity());
-        profileButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openProfileActivity());
-        addFriendButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openAddFriendFragment());
-        return view;
+    return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    switch (item.getItemId()){
+                        case R.id.Home:
+                            friendsActivityFragmentCommunication.openDashboardActivity();
+                            break;
+                        case R.id.Friends:
+                            friendsActivityFragmentCommunication.openFriendsFragment();
+                            break;
+                        case R.id.Profile:
+                            friendsActivityFragmentCommunication.openProfileActivity();
+                            break;
+                    }
+                    return true;
+                }
+            };
+
 }

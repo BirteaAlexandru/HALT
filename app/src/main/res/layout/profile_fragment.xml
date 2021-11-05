@@ -3,71 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:menu="@menu/bottom_menu">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/dark_grey"
-        android:gravity="center|left"
         android:orientation="vertical"
+        android:gravity="bottom"
         tools:context=".fragments.ProfileFragment">
-
-        <CheckBox
-            android:id="@+id/smoking_availability"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_button"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_marginLeft="@dimen/margin_top"
-            />
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:stretchColumns="0"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linear_bottombar"
             >
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/home_button"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@color/green"
-                android:drawableTop="@drawable/home"
-                android:gravity="center"
-                android:text="@string/home_button"
-                android:textColor="@color/dark_green"
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/profile_button"
+            <CheckBox
+                android:id="@+id/smoking_availability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/green"
-                android:drawableTop="@drawable/profile"
-                android:text="@string/profile_button"
-                android:textColor="@color/dark_green"
+                android:text="@string/radio_button"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginLeft="@dimen/margin_top"
                 />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/friends_button"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/linear_bottombar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:menu="@menu/bottom_menu"
                 android:background="@color/green"
-                android:drawableTop="@drawable/friends"
-                android:text="@string/friends_button"
-                android:textColor="@color/dark_green"
+                app:itemTextColor="@color/dark_green"
+                app:itemRippleColor="@color/dark_green"
+                app:itemIconTint="@color/dark_green"
                 />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>
