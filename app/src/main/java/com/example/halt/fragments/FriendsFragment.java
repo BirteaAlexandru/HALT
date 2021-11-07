@@ -8,18 +8,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.halt.Models.User;
 import com.example.halt.R;
+import com.example.halt.adapters.MyAdapter;
 import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class FriendsFragment extends Fragment {
     private FriendsActivityFragmentCommunication friendsActivityFragmentCommunication;
+    private ArrayList<User> userList;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -32,12 +48,54 @@ public class FriendsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
         View view = inflater.inflate(R.layout.friends_fragment, container, false);
+        super.onCreate(savedInstanceState);
+        userList = new ArrayList<User>();
+        FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Users");
+        FloatingActionButton floatingActionButton= view.findViewById(R.id.add_friend_button);
+
+        setHasOptionsMenu(true);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_friends);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        MyAdapter myAdapter = new MyAdapter(userList);
+        recyclerView.setAdapter(myAdapter);
+
+        floatingActionButton.setOnClickListener(v -> friendsActivityFragmentCommunication.openAddFriendFragment());
         BottomNavigationView bottomNavigationView= view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        databaseReference.child(firebaseAuth.getUid()).child("Friends").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userList.clear();
+                for (DataSnapshot snapshotIndex:snapshot.getChildren())
+                {
+                    String str = snapshotIndex.getKey();//get friends user id
+                    databaseReference.child(str).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String name = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
+                            userList.add(new User(name));
+                            myAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), "accessing friends database error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "User's friends error", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     return view;
     }

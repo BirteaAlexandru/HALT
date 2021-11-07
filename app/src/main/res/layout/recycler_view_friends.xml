@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/edit_friend_text_size"
-            android:text="test text"
+
             />
 
     </RelativeLayout>
