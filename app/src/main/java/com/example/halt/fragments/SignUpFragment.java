@@ -54,8 +54,9 @@ public class SignUpFragment extends Fragment {
         passwordEt = view.findViewById(R.id.password);
         confirmPasswordEt = view.findViewById(R.id.confirm_password);
         Button signUpButton = view.findViewById(R.id.sign_up_button);
-        progressDialog = new ProgressDialog(this.getActivity());
         TextView signInTV = view.findViewById(R.id.sign_in_tv);
+        progressDialog = new ProgressDialog(this.getActivity());
+
         signUpButton.setOnClickListener(v -> register());
         signInTV.setOnClickListener(v -> authenticationActivityFragmentCommunication.openLoginFragment());
         return view;
@@ -107,25 +108,17 @@ public class SignUpFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // inside the method of on Data change we are setting
-                // our object class to our database reference.
-                // data base reference will sends data to firebase.
-                databaseReference.child("Users").child(userId).setValue(user);
 
-                // after adding this data we are showing toast message.
+                databaseReference.child("Users").child(userId).setValue(user);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // if the data is not added or it is cancelled then
-                // we are displaying a failure toast message.
             }
         });
 
 
     }
-
-
 
     private Boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());

@@ -78,8 +78,11 @@ public class FriendsFragment extends Fragment {
                     databaseReference.child(str).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String name = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
-                            userList.add(new User(name));
+
+                            String name = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+                            String email = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
+
+                            userList.add(new User(name, email, str));
                             myAdapter.notifyDataSetChanged();
                         }
 

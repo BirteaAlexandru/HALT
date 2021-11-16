@@ -44,6 +44,7 @@ public class AddFriendFragment extends Fragment {
 
     public void addFriend(){
         String email = emailEt.getText().toString();
+        emailEt.setText("");
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference();
@@ -79,8 +80,7 @@ public class AddFriendFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String str2, str = snapshot.getValue().toString();
-
+                String str = snapshot.getValue().toString();
                 str= str.substring(str.indexOf('{')+1, str.indexOf('='));
                 callback.onCallback(str);
             }

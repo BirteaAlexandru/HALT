@@ -3,6 +3,7 @@ package com.example.halt.Models;
 import java.util.ArrayList;
 
 public class User {
+    String userId=null;
     String email;
     String username;
     boolean smoking_available;
@@ -18,10 +19,14 @@ public class User {
    //     friends = null;
    //     friendRequests = null;
     }
-
     public User(String username, String email) {
         this.email = email;
         this.username = username;
+    }
+    public User(String username, String email, String userId) {
+        this.email = email;
+        this.username = username;
+        this.userId= userId;
     }
 
     public void addFriend(){
@@ -34,6 +39,11 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setUserId(String userId) { this.userId = userId;}
+
+    public String getUserId() {  return userId;   }
+
     public String getUsername() {
         return username;
     }

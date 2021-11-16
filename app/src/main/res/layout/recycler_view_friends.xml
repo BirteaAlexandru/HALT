@@ -13,13 +13,23 @@
         android:background="@color/grey"
 
         >
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/default_user_img"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/green"
+            />
         <TextView
             android:id="@+id/friends_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/friend_name_margin"
             android:textColor="@color/white"
             android:textSize="@dimen/edit_friend_text_size"
-
+            android:layout_toRightOf="@id/profile_image_iv"
             />
 
     </RelativeLayout>

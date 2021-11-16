@@ -19,5 +19,6 @@
     <string name="friend_activity_name">FriendActivity</string>
     <string name="profile_activity_name">ProfileActivity</string>
     <string name="radio_button">ready for a smoke?</string>
+    <string name="enter_new_name">enter new name</string>
 
 </resources>
