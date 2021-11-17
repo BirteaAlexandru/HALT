@@ -1,5 +1,5 @@
 <resources>
-    <string name="google_maps_api_key"></string>
+    <string name="google_maps_api_key">AIzaSyBi77CatAO7WOGcbHd2_eWOEyd82hVMekQ</string>
     <string name="app_name">HALT</string>
     <string name="sign_in">SignIn</string>
     <string name="login_label">LogIn</string>
