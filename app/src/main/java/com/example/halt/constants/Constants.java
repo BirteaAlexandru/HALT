@@ -1,6 +1,8 @@
 package com.example.halt.constants;
 
 public class Constants {
+    public final static String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+
     public final static String EMAIL_ERROR_MESSAGE = "Enter your email";
     public final static String PASSWORD_ERROR_MESSAGE = "Enter your password";
     public final static String CONFIRM_PASSWORD_ERROR_MESSAGE = "Confirm your password";
