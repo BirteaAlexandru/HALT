@@ -75,12 +75,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onSuccess(byte[] bytes) {
                     Bitmap bmp= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                     image.setImageBitmap(bmp);
-                    System.out.println("pl");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    System.out.println("pl eroare");
                 }
             });
         }
