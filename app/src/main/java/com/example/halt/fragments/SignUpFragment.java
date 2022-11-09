@@ -104,6 +104,8 @@ public class SignUpFragment extends Fragment {
     }
 
     public void writeNewUser(String userId, String name, String email) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         User user = new User(name, email);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,8 +118,6 @@ public class SignUpFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
     }
 
     private Boolean isValidEmail(CharSequence target) {

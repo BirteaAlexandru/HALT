@@ -101,8 +101,8 @@ public class ProfileFragment extends Fragment {
                         case R.id.Friends:
                             profileActivityFragmentCommunication.openFriendsActivity();
                             break;
-                        case R.id.Profile:
-                            profileActivityFragmentCommunication.openProfileFragment();
+                        case R.id.Create:
+                            profileActivityFragmentCommunication.openCreateMeetPointActivity();
                             break;
                     }
                     return true;

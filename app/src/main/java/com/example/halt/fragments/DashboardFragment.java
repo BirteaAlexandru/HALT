@@ -87,8 +87,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                     switch (item.getItemId()) {
-                        case R.id.Home:
-                            dashboardActivityFragmentCommunication.openDashboardFragment();
+                        case R.id.Create:
+                            dashboardActivityFragmentCommunication.openCreateMeetPointActivity();
                             break;
                         case R.id.Friends:
                             dashboardActivityFragmentCommunication.openFriendsActivity();

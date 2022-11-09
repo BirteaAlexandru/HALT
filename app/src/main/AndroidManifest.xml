@@ -26,7 +26,8 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".activities.AuthenticationActivity">
+        <activity android:name=".activities.AuthenticationActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +39,11 @@
             android:name=".activities.FriendsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/friend_activity_name"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name=".activities.CreateMeetPointActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/create_meet_point_activity_name"
             android:screenOrientation="sensor" />
         <activity
             android:name=".activities.ProfileActivity"

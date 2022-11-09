@@ -42,4 +42,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileActivit
         Intent myIntent = new Intent(this, DashboardActivity.class);
         this.startActivity(myIntent);
     }
+    @Override
+    public void openCreateMeetPointActivity() {
+        Intent myIntent = new Intent(this, CreateMeetPointActivity.class);
+        this.startActivity(myIntent);
+    }
 }

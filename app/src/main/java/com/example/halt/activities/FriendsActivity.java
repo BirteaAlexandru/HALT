@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -41,6 +42,12 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
     @Override
     public void openProfileActivity() {
         Intent myIntent = new Intent(this, ProfileActivity.class);
+        this.startActivity(myIntent);
+    }
+
+    @Override
+    public void openCreateMeetPointActivity() {
+        Intent myIntent = new Intent(this, CreateMeetPointActivity.class);
         this.startActivity(myIntent);
     }
 

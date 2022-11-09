@@ -45,4 +45,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardAct
         Intent myIntent = new Intent(this, ProfileActivity.class);
         this.startActivity(myIntent);
     }
+
+    @Override
+    public void openCreateMeetPointActivity() {
+        Intent myIntent = new Intent(this, CreateMeetPointActivity.class);
+        this.startActivity(myIntent);
+    }
 }

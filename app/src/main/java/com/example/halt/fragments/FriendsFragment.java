@@ -1,6 +1,8 @@
 package com.example.halt.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,17 +75,19 @@ public class FriendsFragment extends Fragment {
         databaseReference.child(firebaseAuth.getUid()).child("Friends").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 userList.clear();
                 for (DataSnapshot snapshotIndex:snapshot.getChildren())
                 {
                     String str = snapshotIndex.getKey();//get friends user id
                     databaseReference.child(str).addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("NotifyDataSetChanged")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                          //  notification();
                             String name = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                             String email = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
-
+                            
                             userList.add(new User(name, email, str));
                             myAdapter.notifyDataSetChanged();
                         }
@@ -110,6 +116,7 @@ public class FriendsFragment extends Fragment {
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
             new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @SuppressLint("NonConstantResourceId")
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -117,8 +124,8 @@ public class FriendsFragment extends Fragment {
                         case R.id.Home:
                             friendsActivityFragmentCommunication.openDashboardActivity();
                             break;
-                        case R.id.Friends:
-                            friendsActivityFragmentCommunication.openFriendsFragment();
+                        case R.id.Create:
+                            friendsActivityFragmentCommunication.openCreateMeetPointActivity();
                             break;
                         case R.id.Profile:
                             friendsActivityFragmentCommunication.openProfileActivity();
@@ -127,5 +134,25 @@ public class FriendsFragment extends Fragment {
                     return true;
                 }
             };
+/*
+    public void notification(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel= new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = ( NotificationManager ) getActivity().getSystemService( getActivity().NOTIFICATION_SERVICE );
+            notificationManager.createNotificationChannel(channel);
+        }
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this.getContext(), "n")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("A friend is ready")
+                .setContentText("Much longer text that cannot fit one line...")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Much longer text that cannot fit one line..."))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this.getContext());
+
+        notificationManager.notify(999, builder.build());
+    }
+*/
 }
