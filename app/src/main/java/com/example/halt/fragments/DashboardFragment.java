@@ -3,17 +3,16 @@ package com.example.halt.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.media.audiofx.Equalizer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -22,8 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.halt.Models.ClusterMarker;
 import com.example.halt.R;
 import com.example.halt.interfaces.DashboardActivityFragmentCommunication;
+import com.example.halt.interfaces.FirebaseCallback;
+import com.example.halt.util.MyClusterManagerRenderer;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,10 +33,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -42,16 +57,27 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import static com.example.halt.constants.Constants.MAPVIEW_BUNDLE_KEY;
+import java.util.ArrayList;
+import java.util.Objects;
 
-public class DashboardFragment extends Fragment implements OnMapReadyCallback {
+public class DashboardFragment extends Fragment implements OnMapReadyCallback  {
     private static final float DEFAULT_ZOOM = 15f;
 
     private DashboardActivityFragmentCommunication dashboardActivityFragmentCommunication;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference().child("MeetPoints");
+    FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+    StorageReference storageReference= firebaseStorage.getReference();
     boolean mLocationPermissionGranted = false;
     MapView mMapView;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private ClusterManager mClusterManager;
+    private MyClusterManagerRenderer mClusterManagerRenderer;
+    private ArrayList<ClusterMarker> mClusterMarkers = new ArrayList<>();
+    private Button joinBtn;
+    private ClusterMarker lastItemSelected;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,10 +94,12 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
+        joinBtn= view.findViewById(R.id.join_meet_point_btn);
         mMapView = view.findViewById(R.id.mapView);
 
         checkPermission();
+        joinBtn.setVisibility(View.GONE);
+        joinBtn.setOnClickListener(v -> JoinBtnOnClick());
 
         if (mLocationPermissionGranted) {
             mMapView.getMapAsync(this);
@@ -101,6 +129,105 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 }
             };
 
+
+    private void addMapMarkers() {
+
+        if (mMap != null)
+        {
+            if (mClusterManager == null) {
+                mClusterManager = new ClusterManager<ClusterMarker>(getActivity().getApplicationContext(), mMap);
+            }
+            if (mClusterManagerRenderer == null) {
+                mClusterManagerRenderer = new MyClusterManagerRenderer(
+                        getActivity(),
+                        mMap,
+                        mClusterManager
+                );
+                mClusterManager.setRenderer(mClusterManagerRenderer);
+            }
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for (DataSnapshot snapshotIndex : snapshot.getChildren()) {
+                        double latitude= (double) Objects.requireNonNull(snapshotIndex.child("location").child("latitude").getValue());
+                        double longitude= (double) Objects.requireNonNull(snapshotIndex.child("location").child("longitude").getValue());
+
+                        String userId= Objects.requireNonNull(snapshotIndex.getKey());
+                        String activity= Objects.requireNonNull(snapshotIndex.child("activity").getValue()).toString();
+                        String day= Objects.requireNonNull(snapshotIndex.child("date").child("date").getValue()).toString();
+                        String month=Objects.requireNonNull(snapshotIndex.child("date").child("month").getValue()).toString();
+                        String year= Objects.requireNonNull(snapshotIndex.child("date").child("year").getValue()).toString();
+                        String hour=Objects.requireNonNull(snapshotIndex.child("date").child("hours").getValue()).toString();
+                        String minute= Objects.requireNonNull(snapshotIndex.child("date").child("minutes").getValue()).toString();
+
+                        String snippet = hour + ':' + minute + "   " + "expected: " + Objects.requireNonNull(snapshotIndex.child("numberOfPersons").getValue()).toString();
+
+                        DownloadImage(snapshotIndex.getKey(), new FirebaseCallback<Bitmap>() {
+                            @Override
+                            public void onCallback(Bitmap image) {
+
+                                try {
+                                    ClusterMarker newClusterMarker = new ClusterMarker(
+                                            new LatLng(latitude, longitude),
+                                            activity,
+                                            snippet,
+                                            userId,
+                                            image
+                                    );
+
+                                    mClusterManager.addItem(newClusterMarker);
+                                    mClusterMarkers.add(newClusterMarker);
+                                    mClusterManager.cluster();
+                                } catch (NullPointerException e) {
+
+                                }
+                            }
+                        });
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<ClusterMarker>() {
+                @Override
+                public boolean onClusterItemClick(ClusterMarker item) {
+                    joinBtn.setVisibility(View.VISIBLE);
+                    lastItemSelected= item;
+                    return false;
+                }
+            });
+
+        }
+    }
+
+    private void JoinBtnOnClick(){
+        databaseReference.child("MeetPoints").child(lastItemSelected.getUserId()).child("Participants").child(firebaseAuth.getUid()).setValue("false");
+    }
+
+    private void DownloadImage(String userId, FirebaseCallback<Bitmap> callback){
+        StorageReference ricersRef= storageReference.child("images/meetPoints/"+ userId);
+        final long ONE_MEGABYTE = 1024 * 1024;
+
+        ricersRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                callback.onCallback(bmp);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+    }
+
     private void checkPermission() {
         Dexter.withContext(this.getContext()).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
@@ -128,41 +255,43 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 MapStyleOptions.loadRawResourceStyle(this.getContext(), R.raw.style)
         );
 
+        mMap.setOnMarkerClickListener(mClusterManager);
+
         getDeviceLocation();
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-             return;
+            return;
         }
         mMap.setMyLocationEnabled(true);
 
-
+        addMapMarkers();
     }
 
-    private void getDeviceLocation(){
-         mFusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(this.getContext());
-         try {
-            if(mLocationPermissionGranted){
+    private void getDeviceLocation() {
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
+        try {
+            if (mLocationPermissionGranted) {
                 Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "location found", Toast.LENGTH_SHORT).show();
-                            Location currentLocation= (Location) task.getResult();
+                            Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM);
-                        }
-                        else  Toast.makeText(getContext(), "location not found", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getContext(), "location not found", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-         }catch (SecurityException e){
+        } catch (SecurityException e) {
 
-         }
+        }
     }
 
-    private void moveCamera(LatLng latLng, float zoom){
+    private void moveCamera(LatLng latLng, float zoom) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
@@ -171,8 +300,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         super.onResume();
         try {
             mMapView.onResume();
+        } catch (Exception e) {
         }
-        catch (Exception e){};
+        ;
     }
 
     @Override
@@ -180,8 +310,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         super.onPause();
         try {
             mMapView.onPause();
+        } catch (Exception e) {
         }
-        catch (Exception e){};
+        ;
     }
 
     @Override
@@ -189,8 +320,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroy();
         try {
             mMapView.onDestroy();
+        } catch (Exception e) {
         }
-        catch (Exception e){};
+        ;
     }
 
     @Override
@@ -198,7 +330,11 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         super.onLowMemory();
         try {
             mMapView.onLowMemory();
+        } catch (Exception e) {
         }
-        catch (Exception e){};
+        ;
     }
+
+
+
 }

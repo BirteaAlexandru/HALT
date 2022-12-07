@@ -33,5 +33,6 @@
     <dimen name="edit_friend_text_size">20sp</dimen>
     <dimen name="friend_name_margin">20dp</dimen>
     <dimen name="camera_zoom">15f</dimen>
+    <dimen name="custom_marker_image">50dp</dimen>
 
 </resources>

@@ -68,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private void downloadImage(User user){
             FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
             StorageReference storageReference= firebaseStorage.getReference();
-            StorageReference ricersRef= storageReference.child("images/"+ user.getUserId());
+            StorageReference ricersRef= storageReference.child("images/profile/"+ user.getUserId());
             final long ONE_MEGABYTE = 1024 * 1024;
             ricersRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override

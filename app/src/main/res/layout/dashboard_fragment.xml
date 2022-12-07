@@ -27,6 +27,14 @@
         app:itemTextColor="@color/dark_green"
         app:menu="@menu/bottom_menu" />
 
+    <Button
+        android:id="@+id/join_meet_point_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mapView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/join_meet_point"/>
 
 
 </RelativeLayout>

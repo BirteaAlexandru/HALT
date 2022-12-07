@@ -243,14 +243,18 @@ public class CreateMeetPointFragment extends Fragment{
         final ProgressDialog pd= new ProgressDialog(this.getContext());
         pd.setTitle("uploading image...");
         pd.show();
+        System.out.println("upload image 1");
 
-        StorageReference ricersRef= storageReference.child("images/"+ firebaseAuth.getUid());
+        StorageReference ricersRef= storageReference.child("images/meetPoints/"+ firebaseAuth.getUid());
 
         ricersRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pd.dismiss();
                 Toast.makeText(getActivity(), "image uploaded", Toast.LENGTH_SHORT).show();
+
+                System.out.println("upload image 2");
+
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -269,7 +273,7 @@ public class CreateMeetPointFragment extends Fragment{
     }
 
     private void downloadImage(){
-        StorageReference ricersRef= storageReference.child("images/"+ firebaseAuth.getUid());
+        StorageReference ricersRef= storageReference.child("images/meetPoints/"+ firebaseAuth.getUid());
         final long ONE_MEGABYTE = 1024 * 1024;
         ricersRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

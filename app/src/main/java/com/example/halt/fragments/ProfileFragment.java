@@ -171,7 +171,7 @@ public class ProfileFragment extends Fragment {
         pd.setTitle("uploading image...");
         pd.show();
 
-        StorageReference ricersRef= storageReference.child("images/"+ firebaseAuth.getUid());
+        StorageReference ricersRef= storageReference.child("images/profile/"+ firebaseAuth.getUid());
 
         ricersRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -196,7 +196,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void downloadImage(){
-        StorageReference ricersRef= storageReference.child("images/"+ firebaseAuth.getUid());
+        StorageReference ricersRef= storageReference.child("images/profile/"+ firebaseAuth.getUid());
         final long ONE_MEGABYTE = 1024 * 1024;
         ricersRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
