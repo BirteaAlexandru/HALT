@@ -37,7 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FriendsFragment extends Fragment {
+public class AttendantsFragment extends Fragment {
     private FriendsActivityFragmentCommunication friendsActivityFragmentCommunication;
     private ArrayList<User> userList;
 
@@ -57,7 +57,7 @@ public class FriendsFragment extends Fragment {
         userList = new ArrayList<User>();
         FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Users");
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
         FloatingActionButton floatingActionButton= view.findViewById(R.id.add_friend_button);
 
         setHasOptionsMenu(true);
@@ -72,23 +72,29 @@ public class FriendsFragment extends Fragment {
         BottomNavigationView bottomNavigationView= view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        databaseReference.child(firebaseAuth.getUid()).child("Friends").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("MeetPoints").child(firebaseAuth.getUid()).child("Participants").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 userList.clear();
                 for (DataSnapshot snapshotIndex:snapshot.getChildren())
                 {
-                    String str = snapshotIndex.getKey();//get friends user id
-                    databaseReference.child(str).addValueEventListener(new ValueEventListener() {
+                    String userId = snapshotIndex.getKey();//get friends user id
+                    String accepted = snapshotIndex.getValue().toString();
+
+                    databaseReference.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                          //  notification();
+
                             String name = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                             String email = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
-                            
-                            userList.add(new User(name, email, str));
+
+                            if(accepted.equals("true")){
+                                userList.add(0, new User(name, email, userId));
+                            }else {
+                                userList.add(new User(name, email, userId));
+                            }
                             myAdapter.notifyDataSetChanged();
                         }
 
@@ -134,25 +140,5 @@ public class FriendsFragment extends Fragment {
                     return true;
                 }
             };
-/*
-    public void notification(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel= new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = ( NotificationManager ) getActivity().getSystemService( getActivity().NOTIFICATION_SERVICE );
-            notificationManager.createNotificationChannel(channel);
-        }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this.getContext(), "n")
-                .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("A friend is ready")
-                .setContentText("Much longer text that cannot fit one line...")
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Much longer text that cannot fit one line..."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this.getContext());
-
-        notificationManager.notify(999, builder.build());
-    }
-*/
 }

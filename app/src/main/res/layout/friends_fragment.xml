@@ -46,7 +46,8 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="@dimen/image_view_margin_bottom"
         android:layout_marginRight="@dimen/image_view_margin_right"
-        android:src="@drawable/add_icon" />
+        android:src="@drawable/add_icon"
+        android:rotation="45"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -54,10 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="labeled"
-        android:background="@color/green"
-        app:itemIconTint="@color/dark_green"
-        app:itemRippleColor="@color/dark_green"
-        app:itemTextColor="@color/dark_green"
+        android:background="@color/dark_brown"
+        app:itemIconTint="@color/lite_brown"
+        app:itemRippleColor="@color/white"
+        app:itemTextColor="@color/white"
         app:menu="@menu/bottom_menu" />
 
 

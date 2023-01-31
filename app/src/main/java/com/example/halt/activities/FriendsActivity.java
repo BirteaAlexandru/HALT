@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
-import com.example.halt.fragments.AddFriendFragment;
-import com.example.halt.fragments.FriendsFragment;
+import com.example.halt.fragments.DeleteMeetPointFragment;
+import com.example.halt.fragments.AttendantsFragment;
 import com.example.halt.interfaces.FriendsActivityFragmentCommunication;
 
 public class FriendsActivity extends AppCompatActivity implements FriendsActivityFragmentCommunication {
@@ -25,8 +25,8 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
     public void openFriendsFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        String tag = FriendsFragment.class.getName();
-        FriendsFragment dashboardFragment = new FriendsFragment();
+        String tag = AttendantsFragment.class.getName();
+        AttendantsFragment dashboardFragment = new AttendantsFragment();
         FragmentTransaction addTransaction = transaction.add(
                 R.id.friend_frame_layout, dashboardFragment, tag
         );
@@ -55,8 +55,8 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
     public void openAddFriendFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        String tag = AddFriendFragment.class.getName();
-        AddFriendFragment dashboardFragment = new AddFriendFragment();
+        String tag = DeleteMeetPointFragment.class.getName();
+        DeleteMeetPointFragment dashboardFragment = new DeleteMeetPointFragment();
         FragmentTransaction addTransaction = transaction.add(
                 R.id.friend_frame_layout, dashboardFragment, tag
         );

@@ -22,9 +22,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.halt.Models.MeetPoint;
+import com.example.halt.Models.User;
 import com.example.halt.R;
+import com.example.halt.adapters.MeetPointAdapter;
+import com.example.halt.adapters.MyAdapter;
 import com.example.halt.constants.Constants;
 import com.example.halt.interfaces.ProfileActivityFragmentCommunication;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +48,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,6 +64,8 @@ public class ProfileFragment extends Fragment {
     private EditText changeNameET;
     private ImageView profileImg;
     public Uri imageUri;
+    public ArrayList<MeetPoint> meetPoints;
+    MeetPointAdapter myAdapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -73,22 +83,55 @@ public class ProfileFragment extends Fragment {
         databaseReference = database.getReference();
         firebaseStorage= FirebaseStorage.getInstance();
         storageReference= firebaseStorage.getReference();
+        meetPoints= new ArrayList<MeetPoint>();
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_meet_points);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        myAdapter = new MeetPointAdapter(meetPoints);
+        recyclerView.setAdapter(myAdapter);
 
-       CheckBox checkBox= view.findViewById(R.id.smoking_availability);
         changeNameET= view.findViewById(R.id.change_name_et);
         Button changeNameBt= view.findViewById(R.id.change_name_button);
         BottomNavigationView bottomNavigationView= view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         profileImg= view.findViewById(R.id.profile_image);
 
-        getAvailabilityFromDataBase(checkBox);
         downloadImage();
+        setRecycleViewData();
 
-        checkBox.setOnClickListener(v -> writeAvailabilityToDataBase());
         changeNameBt.setOnClickListener(v -> changeName(changeNameET.getText().toString()));
         profileImg.setOnClickListener(v -> chooseImage());
         return view;
     }
+
+    void setRecycleViewData(){
+        databaseReference.child("MeetPoints").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                meetPoints.clear();
+                for (DataSnapshot snapshotIndex:snapshot.getChildren())
+                {
+                    String str = snapshotIndex.getKey();//get friends user id
+
+                    if(snapshotIndex.child("Participants").child(firebaseAuth.getUid()).getValue()!=null)
+                    if(snapshotIndex.child("Participants").child(firebaseAuth.getUid()).getValue().toString().equals("true")){
+                        System.out.println("meet point in");
+                        meetPoints.add(new MeetPoint(str, snapshotIndex.child("activity").getValue().toString(),
+                                snapshotIndex.child("date").child("hours").getValue().toString(), snapshotIndex.child("date").child("minutes").getValue().toString()));
+                        myAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "User's friends error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -108,41 +151,9 @@ public class ProfileFragment extends Fragment {
                     return true;
                 }
             };
-    private void writeAvailabilityToDataBase(){
-        databaseReference.child("Users").child(firebaseAuth.getUid()).child("smoking_available").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue().toString().equals("true"))
-                    databaseReference.child("Users").child(firebaseAuth.getUid()).child("smoking_available").setValue(false);
-                else
-                    databaseReference.child("Users").child(firebaseAuth.getUid()).child("smoking_available").setValue(true);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-    }
 
-    private void getAvailabilityFromDataBase(CheckBox checkBox){
-        databaseReference.child("Users").child(firebaseAuth.getUid()).child("smoking_available").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue().toString().equals("true") ) {
-                    checkBox.setChecked(true);
-                }
-                else {
-                    checkBox.setSelected(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     private void changeName(String newName){
         changeNameET.setText("");

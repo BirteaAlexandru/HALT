@@ -15,31 +15,35 @@
         >
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image_iv"
+            android:id="@+id/meet_point_image_iv"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/default_user_img"
+            android:src="@drawable/default_meet_point_image"
             app:civ_border_width="3dp"
-            app:civ_border_color="@color/lite_brown"
+            app:civ_border_color="@color/green"
             />
         <TextView
-            android:id="@+id/friends_name_tv"
+            android:id="@+id/meet_point_activity_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/friend_name_margin"
+            android:layout_marginStart="@dimen/friend_name_margin"
             android:textColor="@color/white"
             android:textSize="@dimen/edit_friend_text_size"
-            android:layout_toRightOf="@id/profile_image_iv"
+            android:layout_toEndOf="@id/meet_point_image_iv"
             />
-
-        <Button
-            android:id="@+id/accept_btn"
+        <TextView
+            android:id="@+id/meet_point_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/friend_name_margin"
             android:textColor="@color/white"
-            android:layout_marginEnd="@dimen/friend_name_margin"
-            android:text="@string/accept_btn" />
+            android:textSize="@dimen/edit_friend_text_size"
+            android:layout_toEndOf="@id/meet_point_image_iv"
+            android:layout_alignTop="@+id/meet_point_activity_tv"
+            android:layout_marginTop="@dimen/small_margin_top"
+            />
+
+
     </RelativeLayout>
 
 

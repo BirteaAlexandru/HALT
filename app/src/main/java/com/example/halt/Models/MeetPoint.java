@@ -5,6 +5,7 @@ import android.location.Location;
 import java.util.Date;
 
 public class MeetPoint {
+    String meetPointId=null;
     String activity;
     int numberOfPersons;
     Date date;
@@ -18,6 +19,19 @@ public class MeetPoint {
         date.setHours(mHour);
         date.setMinutes(mMinute);
     }
+
+    public MeetPoint(String meetPointId, String activity, String hour, String minute)
+    {
+        this.meetPointId= meetPointId;
+        this.activity= activity;
+        this.date= new Date();
+        this.date.setHours(Integer.parseInt(hour));
+        this.date.setMinutes(Integer.parseInt(minute));
+    }
+
+    public String getMeetPointId() {return meetPointId;}
+
+    public void setMeetPointId(String meetPointId) {this.meetPointId = meetPointId;}
 
     public String getActivity() {
         return activity;

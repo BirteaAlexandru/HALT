@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_friends_ly"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -11,8 +11,8 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Add friend"
-    android:textSize="50dp"
+    android:text="Delete Meet-Point?"
+    android:textSize="40dp"
     android:textAlignment="center"
     android:textColor="@color/white"
     android:gravity="center_horizontal" />
@@ -21,26 +21,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         >
 
-        <EditText
-            android:id="@+id/add_friend_tv"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_text_height"
-            android:background="@drawable/rectangular_field"
-            android:hint="@string/email_hint"
-            android:inputType="textEmailAddress"
-            android:paddingVertical="@dimen/edit_text_vertical_padding"
-            android:paddingLeft="@dimen/edit_text_left_padding"
-            android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/invite_friend_button"
+            android:id="@+id/delete_meet_point_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add"
+            android:text="chancel"
             />
+
+        <Button
+            android:id="@+id/chancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Style.DeleteBtn"
+            android:layout_marginStart="30dp"
+            android:text="delete"
+             />
 
     </LinearLayout>
 </LinearLayout>

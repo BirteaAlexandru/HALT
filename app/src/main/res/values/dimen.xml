@@ -34,5 +34,7 @@
     <dimen name="friend_name_margin">20dp</dimen>
     <dimen name="camera_zoom">15f</dimen>
     <dimen name="custom_marker_image">50dp</dimen>
+    <dimen name="small_margin_top">20dp</dimen>
+
 
 </resources>
