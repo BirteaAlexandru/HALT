@@ -29,6 +29,20 @@
         <entry key="..\:/Users/alexb/OneDrive/Desktop/facultate/IS/HALT/app/src/main/res/layout/spinner_dropdown_item.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/alexb/OneDrive/Desktop/facultate/IS/HALT/app/src/main/res/layout/spinner_item.xml" value="0.13125" />
         <entry key="..\:/Users/alexb/OneDrive/Desktop/facultate/IS/HALT/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/drawable/add_icon.xml" value="0.2703125" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/add_friend_layout.xml" value="0.13125" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/attendants_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/authentication_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/create_meet_point_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/dashboard_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/delete_meet_point_fragment.xml" value="0.15989583333333332" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/friends_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/login_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/profile_fragment.xml" value="0.264" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/recycler_view_friends.xml" value="0.13125" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/layout/recycler_view_meet_points.xml" value="0.13125" />
+        <entry key="..\:/facultate/IS/HALT/app/src/main/res/menu/bottom_menu.xml" value="0.13125" />
       </map>
     </option>
   </component>

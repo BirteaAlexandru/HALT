@@ -82,7 +82,7 @@
             android:backgroundTint="@color/green"
             android:text="@string/login_label"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:textSize="@dimen/login_button_text_size" />
 
         <LinearLayout

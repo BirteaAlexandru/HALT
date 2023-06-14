@@ -12,12 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.halt.R;
+import com.example.halt.interfaces.CreateMeetPointActivityFragmentCommunication;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class DeleteMeetPointFragment extends Fragment {
 
+    CreateMeetPointActivityFragmentCommunication createMeetPointActivityFragmentCommunication;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("MeetPoints");
@@ -30,18 +32,19 @@ public class DeleteMeetPointFragment extends Fragment {
         Button chancelBtn = view.findViewById(R.id.chancel_button);
         Button deleteBtn = view.findViewById(R.id.delete_meet_point_button);
 
-        chancelBtn.setOnClickListener(v -> Chancel());
-        deleteBtn.setOnClickListener(v -> DeleteMeetPoint());
+        chancelBtn.setOnClickListener(v -> OnChancel());
+        deleteBtn.setOnClickListener(v -> OnDeleteMeetPoint());
 
         return view;
     }
 
-    void Chancel(){
-
+    void OnChancel(){
+        createMeetPointActivityFragmentCommunication.openFriendsActivity();
     }
 
-    void DeleteMeetPoint(){
+    void OnDeleteMeetPoint(){
         databaseReference.child(firebaseAuth.getUid()).removeValue();
+        createMeetPointActivityFragmentCommunication.openCreateMeetPointFragment();
     }
 
 }

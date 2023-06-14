@@ -182,7 +182,6 @@ public class CreateMeetPointFragment extends Fragment{
         int Month = c.get(Calendar.MONTH);
         int Day = c.get(Calendar.DAY_OF_MONTH);
 
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getContext(),
                 new DatePickerDialog.OnDateSetListener() {
 

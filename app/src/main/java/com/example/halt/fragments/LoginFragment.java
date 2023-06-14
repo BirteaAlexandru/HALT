@@ -77,7 +77,8 @@ public class LoginFragment extends Fragment {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this.requireActivity(), task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getActivity(), Constants.SUCCESSFUL_LOGIN_MESSAGE, Toast.LENGTH_SHORT).show();
-                SharedPreferences sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_USER_EMAIL, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_USER_EMAIL,
+                        Context.MODE_PRIVATE);
                 SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
                 sharedPreferencesEditor.putString("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
                 sharedPreferencesEditor.apply();

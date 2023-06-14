@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELECT DATE"
-                android:textColor="@color/dark_green"
+                android:textColor="@color/grey"
                 android:id="@+id/btn_date"
                 />
         </LinearLayout>
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELECT TIME"
-                android:textColor="@color/dark_green"
+                android:textColor="@color/grey"
                 android:id="@+id/btn_time"
                  />
           </LinearLayout>
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:text="@string/create_meet_point_button"
             android:textAlignment="center"
-            android:textColor="@color/dark_green"/>
+            android:textColor="@color/grey"/>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -126,7 +126,7 @@
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="labeled"
         android:background="@color/green"
-        app:itemIconTint="@color/dark_green"
-        app:itemTextColor="@color/dark_green"
+        app:itemIconTint="@color/grey"
+        app:itemTextColor="@color/grey"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>

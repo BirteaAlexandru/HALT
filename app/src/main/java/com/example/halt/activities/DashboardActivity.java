@@ -9,8 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
 import com.example.halt.fragments.DashboardFragment;
-import com.example.halt.fragments.FriendsFragment;
-import com.example.halt.fragments.ProfileFragment;
 import com.example.halt.interfaces.DashboardActivityFragmentCommunication;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardActivityFragmentCommunication {

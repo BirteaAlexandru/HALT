@@ -28,7 +28,7 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
         String tag = AttendantsFragment.class.getName();
         AttendantsFragment dashboardFragment = new AttendantsFragment();
         FragmentTransaction addTransaction = transaction.add(
-                R.id.friend_frame_layout, dashboardFragment, tag
+                R.id.attendants_frame_layout, dashboardFragment, tag
         );
         addTransaction.commit();
     }
@@ -58,7 +58,7 @@ public class FriendsActivity extends AppCompatActivity implements FriendsActivit
         String tag = DeleteMeetPointFragment.class.getName();
         DeleteMeetPointFragment dashboardFragment = new DeleteMeetPointFragment();
         FragmentTransaction addTransaction = transaction.add(
-                R.id.friend_frame_layout, dashboardFragment, tag
+                R.id.attendants_frame_layout, dashboardFragment, tag
         );
         addTransaction.commit();
     }

@@ -6,18 +6,14 @@ public class User {
     String userId=null;
     String email;
     String username;
-    boolean smoking_available;
-    //ArrayList<User> friends;
-   // ArrayList<User> friendRequests;
+
 
     public User(){
 
     }
     public User(String email){
         this.email =  email;
-        smoking_available = true;
-   //     friends = null;
-   //     friendRequests = null;
+
     }
     public User(String username, String email) {
         this.email = email;
@@ -29,9 +25,6 @@ public class User {
         this.userId= userId;
     }
 
-    public void addFriend(){
-
-    }
 
     public String getEmail() {
         return email;
@@ -52,11 +45,4 @@ public class User {
         this.username = username;
     }
 
-    public boolean isSmoking_available() {
-        return smoking_available;
-    }
-
-    public void setSmoking_available(boolean smoking_available) {
-        this.smoking_available = smoking_available;
-    }
 }

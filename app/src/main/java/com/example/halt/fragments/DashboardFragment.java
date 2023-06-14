@@ -153,7 +153,6 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback  {
                     for (DataSnapshot snapshotIndex : snapshot.getChildren()) {
                         double latitude= (double) Objects.requireNonNull(snapshotIndex.child("location").child("latitude").getValue());
                         double longitude= (double) Objects.requireNonNull(snapshotIndex.child("location").child("longitude").getValue());
-
                         String userId= Objects.requireNonNull(snapshotIndex.getKey());
                         String activity= Objects.requireNonNull(snapshotIndex.child("activity").getValue()).toString();
                         String day= Objects.requireNonNull(snapshotIndex.child("date").child("date").getValue()).toString();
@@ -207,7 +206,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback  {
     }
 
     private void JoinBtnOnClick(){
-        databaseReference.child("MeetPoints").child(lastItemSelected.getUserId()).child("Participants").child(firebaseAuth.getUid()).setValue("false");
+        databaseReference.child(lastItemSelected.getUserId()).child("Participants").child(firebaseAuth.getUid()).setValue("false");
+        Toast.makeText(getContext(), "request send", Toast.LENGTH_SHORT).show();
     }
 
     private void DownloadImage(String userId, FirebaseCallback<Bitmap> callback){
@@ -256,7 +256,6 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback  {
         );
 
         mMap.setOnMarkerClickListener(mClusterManager);
-
         getDeviceLocation();
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)

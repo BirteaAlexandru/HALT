@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.halt.R;
+import com.example.halt.fragments.AttendantsFragment;
 import com.example.halt.fragments.CreateMeetPointFragment;
+import com.example.halt.fragments.DeleteMeetPointFragment;
 import com.example.halt.interfaces.CreateMeetPointActivityFragmentCommunication;
 
 public class CreateMeetPointActivity extends AppCompatActivity implements CreateMeetPointActivityFragmentCommunication {
@@ -32,6 +34,29 @@ public class CreateMeetPointActivity extends AppCompatActivity implements Create
         addTransaction.commit();
     }
 
+    @Override
+    public void openDeleteMeetPointFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        String tag = DeleteMeetPointFragment.class.getName();
+        DeleteMeetPointFragment dashboardFragment = new DeleteMeetPointFragment();
+        FragmentTransaction addTransaction = transaction.add(
+                R.id.attendants_frame_layout, dashboardFragment, tag
+        );
+        addTransaction.commit();
+    }
+
+    @Override
+    public void openAttendantsFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        String tag = AttendantsFragment.class.getName();
+        AttendantsFragment dashboardFragment = new AttendantsFragment();
+        FragmentTransaction addTransaction = transaction.add(
+                R.id.attendants_frame_layout, dashboardFragment, tag
+        );
+        addTransaction.commit();
+    }
     @Override
     public void openFriendsActivity() {
         Intent myIntent = new Intent(this, FriendsActivity.class);

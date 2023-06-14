@@ -1,23 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.HALT" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
+    <style name="Theme.HALT" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_green</item>
         <item name="colorPrimaryVariant">@color/green</item>
         <item name="colorOnPrimary">@color/dark_grey</item>
-        <item name="android:textColorPrimary">@color/grey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="titleTextColor">@color/grey</item>
         <item name="colorAccent">@color/grey</item>
+        <item name="colorPrimaryDark">@color/grey</item>
         <!-- Status bar color. -->
+        <item name="titleTextColor">?attr/colorAccent</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">
+            ?attr/colorAccent
+        </item>
+        <item name="colorButtonNormal">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="Style.DeleteBtn" parent="ThemeOverlay.AppCompat">
         <item name="colorPrimary">@color/red</item>
     </style>
+
 </resources>

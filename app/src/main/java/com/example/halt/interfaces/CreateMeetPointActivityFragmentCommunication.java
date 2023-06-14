@@ -5,4 +5,6 @@ public interface CreateMeetPointActivityFragmentCommunication {
     void openFriendsActivity();
     void openProfileActivity();
     void openCreateMeetPointFragment();
+    void openDeleteMeetPointFragment();
+    void openAttendantsFragment();
 }

@@ -49,7 +49,7 @@
             <Button
                 android:id="@+id/change_name_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_small_height"
                 android:text="change" />
         </LinearLayout>
 
@@ -78,7 +78,7 @@
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="labeled"
         android:background="@color/green"
-        app:itemIconTint="@color/dark_green"
-        app:itemTextColor="@color/dark_green"
+        app:itemIconTint="@color/grey"
+        app:itemTextColor="@color/grey"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>

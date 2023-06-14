@@ -54,11 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:labelVisibilityMode="labeled"
-        android:background="@color/dark_brown"
-        app:itemIconTint="@color/lite_brown"
+        android:background="@color/green"
+        app:itemIconTint="@color/grey"
         app:itemRippleColor="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemTextColor="@color/grey"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu" />
 
 

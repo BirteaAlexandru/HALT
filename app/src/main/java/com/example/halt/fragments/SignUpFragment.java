@@ -94,7 +94,7 @@ public class SignUpFragment extends Fragment {
             if (task.isSuccessful()) {
                 Toast.makeText(getActivity(), Constants.SUCCESSFUL_REGISTER_MESSAGE, Toast.LENGTH_SHORT).show();
                 authenticationActivityFragmentCommunication.openLoginFragment();
-                writeNewUser(firebaseAuth.getUid(), "mama", email);
+                writeNewUser(firebaseAuth.getUid(), email, email);
             } else {
                 Toast.makeText(getActivity(), Constants.FAILED_REGISTER_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
 
