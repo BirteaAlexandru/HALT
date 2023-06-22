@@ -8,12 +8,10 @@
         android:icon="@drawable/home"
         />
     <item android:id="@+id/Create"
-        android:title="Create"
+        android:title="MeetPoint"
         android:icon="@drawable/create_meet_point"/>
     <item android:id="@+id/Profile"
         android:title="Profile"
         android:icon="@drawable/profile"/>
-    <item android:id="@+id/Friends"
-        android:title="Friends"
-        android:icon="@drawable/friends"/>
+
 </menu>

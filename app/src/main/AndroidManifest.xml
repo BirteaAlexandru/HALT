@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.halt">
+    package="com.example.HealthT">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -26,7 +26,7 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".activities.AuthenticationActivity"
+        <activity android:name="com.example.HealthT.activities.AuthenticationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,19 +34,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DashboardActivity"/>
+        <activity android:name="com.example.HealthT.activities.DashboardActivity"/>
         <activity
-            android:name=".activities.FriendsActivity"
+            android:name="com.example.HealthT.activities.AttendantsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/friend_activity_name"
             android:screenOrientation="sensor" />
         <activity
-            android:name=".activities.CreateMeetPointActivity"
+            android:name="com.example.HealthT.activities.CreateMeetPointActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/create_meet_point_activity_name"
             android:screenOrientation="sensor" />
         <activity
-            android:name=".activities.ProfileActivity"
+            android:name="com.example.HealthT.activities.ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/profile_activity_name"
             android:screenOrientation="sensor" />
